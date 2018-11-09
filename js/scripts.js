@@ -1,9 +1,60 @@
-   $(document).ready(function () {
-    
-    $('#loginform').on('submit', (function (e) {
+   $(document).ready(function(){
+
+    $('#userform').on('submit', (function (e) {
         e.preventDefault();
-        $('#email_error').html('');
+        $('#nameError').html('');
+        $('#mailerror').html('');
+        $('#numbererror').html('');
         $('#password_error').html('');
+        $.ajax({
+            url: "php/register.php",
+            type: "POST",//request type can either be post,get,put,putch,delete
+            contentType: false,
+            data: new FormData(this),
+            cache: false,
+            processData: false,
+            success: function (res) {
+                console.log(res);
+                //  alert(res.success);
+                if (res.name) {
+                    $('#nameError').html(res.name);
+
+                }
+                if (res.email) {
+                    $('#mailerror').html(res.email);
+
+                }
+                if (res.number) {
+                    $('#numbererror').html(res.age);
+
+                }
+                if (res.password) {
+                    $('#passerror').html(res.password);
+
+                }
+            
+                if (res.success) {
+                    swal({
+                        title: "Registered!",
+                        // text: `${res.userDetails}`,
+                        icon: "success",
+                        button: "Go to Login!",
+                    }).then(() => {
+                        // swal(`redirecting!!`);
+                        redirecting();
+                    });
+                }
+
+            }
+        });
+
+    }));
+
+   });
+   $('#loginform').on('submit',(function (e) {
+        e.preventDefault();
+        $('#mailerror').html('');
+        $('#passerror').html('');
 
         $.ajax({
             url: "php/login.php",
@@ -50,5 +101,5 @@
         });
 
 
-    }));
-});
+   }));
+       

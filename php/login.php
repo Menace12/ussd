@@ -1,12 +1,14 @@
 <?php
     error_reporting(0);
 include('connection.php');
-    $email= $_POST['email'];
+
+     $email= $_POST['email'];
      $password= $_POST['password'];
 
-    if(filter_var($email,FILTER_VALIDATE_EMAIL)==False{
+    if(filter_var($email,FILTER_VALIDATE_EMAIL)==False){
         $array['email'].="That is not a valid email.";
     }
+
    if(empty($email)==true){
         $array['email'].="Type your email please.";
     }
